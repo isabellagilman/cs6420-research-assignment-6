@@ -12,12 +12,12 @@ void MaximalSuffix(string pattern, bool reverseOrder,  int * maximalSuffix, int 
   int k = 1;
   int n = pattern.length();
 
-  while (j + k <= n)
+  while (j + k < n)
   {
     int a = pattern[j + k];
     int b = pattern[*maximalSuffix + k];
 
-    if (reverseOrder)
+    if (!reverseOrder)
     {
       if (a < b)
       {
@@ -49,10 +49,9 @@ void MaximalSuffix(string pattern, bool reverseOrder,  int * maximalSuffix, int 
     {
       if (a > b)
       {
-        *maximalSuffix = j;
-        j = *maximalSuffix + 1;
+        j = j + k;
         k = 1;
-        *period = 1;
+        *period = j - *maximalSuffix;
       }
       else if (a == b)
       {
@@ -68,9 +67,10 @@ void MaximalSuffix(string pattern, bool reverseOrder,  int * maximalSuffix, int 
       }
       else
       {
-        j = j + k;
+        *maximalSuffix = j;
+        j = *maximalSuffix + 1;
         k = 1;
-        *period = j - *maximalSuffix;
+        *period = 1;
       }
     }
   }
@@ -82,13 +82,19 @@ int TwoWayMatch(string pattern, string text)
   int l1, l2, p1, p2;
   MaximalSuffix(pattern, false, &l1, &p1);
   MaximalSuffix(pattern, true, &l2, &p2);
+  cout << l1 << ", " << l2 << ", " << p1 << ", " << p2 << endl;
 
+  return 0;
 }
+
 
 int main()
 {
-  // TODO: Replace this line with actual logic
-  std::cout << "Part 1: TODO" << std::endl;
+  char pattern[] = "the cat is outta the bag";
+  string s_pattern = pattern;
+  int n = s_pattern.length();
+
+  TwoWayMatch(s_pattern, "");
 
   return 0;
 }
