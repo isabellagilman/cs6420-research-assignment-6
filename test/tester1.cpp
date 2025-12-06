@@ -2,51 +2,59 @@
 #include <catch2/catch_all.hpp>
 #include <fstream>
 #include <string>
+#include <iostream>
+#include "alg_twoway.h"
 
 using namespace std;
 
-// Change me or remove me to appropriately test part1 of this assignment
-TEST_CASE("Test case 1 description goes here", "[tag1]")
+TEST_CASE("Basic", "[Test]")
 {
-	// Setup: An example using a resource file - Keep, change, or remove as needed.
-	int x = 10;
-	ifstream file("../resources/100ints.txt");
-	REQUIRE(file.is_open());
+	string pattern = "5";
+ 	string text = "0123456789";
 
-	// Each SECTION runs independently, with fresh setup.
-	SECTION("Section 1")
-	{
-		int y;
-		file >> y;
-		CHECK(y == -492);
+  	vector<int> tw_matches = TwoWayMatch(pattern, text);
 
-		CHECK(x - 4 == 6.);
-		CHECK(!false);
-		CHECK(x == 10);
-	}
-
-	SECTION("Section 2")
-	{
-		int z;
-		file >> z;
-		CHECK(z == -492);
-
-		CHECK_FALSE(false);
-		CHECK(x != 1);
-	}
-
-	// Teardown
-	file.close();
+	CHECK(tw_matches[0] == 5);
 }
 
-// Change me or remove me to appropriately test part1 of this assignment
-TEST_CASE("Test case 2 description goes here", "[tag2]")
+TEST_CASE("Edges", "[Test]")
 {
-	CHECK(true);
+ 	string text = "0123456789";
+
+	string pattern = "0";
+  	vector<int> tw_matches = TwoWayMatch(pattern, text);
+	CHECK(tw_matches[0] == 0);
+
+	pattern = "9";
+  	tw_matches = TwoWayMatch(pattern, text);
+	CHECK(tw_matches[0] == 9);
 }
 
-// Change me or remove me to appropriately test part1 of this assignment
-TEST_CASE("Test case 3 description goes here", "[tag2]")
+TEST_CASE("Multi-Character Pattern", "[Test]")
 {
-	CHECK_FALSE(false);
+ 	string text = "0123456789";
+
+	string pattern = "456";
+  	vector<int> tw_matches = TwoWayMatch(pattern, text);
+	CHECK(tw_matches[0] == 4);
+}
+
+TEST_CASE("Pattern with repetitions", "[Test]")
+{
+ 	string text = "01234567abaabaabaab89";
+
+	string pattern = "abaabaabaab";
+  	vector<int> tw_matches = TwoWayMatch(pattern, text);
+	CHECK(tw_matches[0] == 8);
+}
+
+TEST_CASE("Multiple Matches", "[Test]")
+{
+ 	string text = "012345a7890a2345a789";
+
+	string pattern = "a";
+  	vector<int> tw_matches = TwoWayMatch(pattern, text);
+	CHECK(tw_matches[0] == 6);
+	CHECK(tw_matches[1] == 11);
+	CHECK(tw_matches[2] == 16);
 }
