@@ -3,7 +3,7 @@
 /* the Geeks For Geeks website on 2025-05-12 for the purpose of timing against    */
 /* the Two-way string-matching algorithm                                          */
 /* url:                                                                           */
-/* https://www.geeksforgeeks.org/dsa/kmp-algorithm-for-pattern-searching/ */
+/* https://www.geeksforgeeks.org/dsa/kmp-algorithm-for-pattern-searching/         */
 
 #include <iostream>
 #include <string>
