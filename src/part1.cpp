@@ -3,6 +3,7 @@
 #include <vector>
 #include "alg_graphs.h"
 #include "alg_boyermoore.h"
+#include "alg_kmp.h"
 #include <cstring>
 
 using namespace std;
@@ -179,7 +180,7 @@ int main()
   string s_text = text;
   int n = s_pattern.length();
 
-  vector<int> matches = bm_search(s_pattern, s_text);
+  vector<int> matches = kmp_search(s_pattern, s_text);
   for(int idx : matches)
   {
     cout << idx << ", ";
