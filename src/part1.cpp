@@ -12,38 +12,39 @@ using namespace std;
 
 void time_algorithms()
 {
-  cout << "\t|   Iterative\t|   Recursive\t|   Strassen" << endl;
+  cout << "\t|   Boyer-Moore\t|   KMP\t\t|   Two-Way" << endl;
   StopWatch stopwatch;
-  for(int n = 2; n <= 64; n = n*2)
+  for(int n = 500000; n <= 5000000; n = n + 500000)
   {
-    double time_it = 0;
-    double time_rec = 0;
-    double time_stra = 0;
+    double time_bm = 0;
+    double time_kmp = 0;
+    double time_tw = 0;
 
-    // Generate 2 random matrices of size nxn
-    double A[n*n];
-    double B[n*n];
-    for(int i = 0; i < (n*n); i++)
+    // Generate random text of size n
+    char text[n];
+    char pattern[] = "aabbccdd";
+    char alphabet[] = "abcd";
+    for(int i = 0; i < n; i++)
     {
-      A[i] = rand() % 1000;
-      B[i] = rand() % 1000;
+      text[i] = alphabet[rand() % 4];
     }
 
-    double * C;
+    string s_text = text;
+    string s_pattern = pattern;
 
     stopwatch.reset();
-    //C = iterative_mult(n, A, B);
-    time_it = stopwatch.elapsed_time();
+    bm_search(s_pattern, s_text);
+    time_bm = stopwatch.elapsed_time();
 
     stopwatch.reset();
-    //C = recursive_mult(n, A, B);
-    time_rec = stopwatch.elapsed_time();
+    kmp_search(s_pattern, s_text);
+    time_kmp = stopwatch.elapsed_time();
 
     stopwatch.reset();
-    //C = strassen_mult(n, A, B);
-    time_stra = stopwatch.elapsed_time();
+    TwoWayMatch(s_pattern, s_text);
+    time_tw = stopwatch.elapsed_time();
 
-    cout << n << "\t|" << time_it << "\t\t|"<< time_rec << "\t\t|"<< time_stra << endl;
+    cout << n << "\t|" << time_bm << "\t\t|"<< time_kmp << "\t\t|"<< time_tw << endl;
   }
 }
 
@@ -56,9 +57,11 @@ int main()
   string s_text = text;
   int n = s_pattern.length();
 
-  vector<int> tw_matches = TwoWayMatch(s_pattern, s_text);
-  vector<int> bm_matches = bm_search(s_pattern, s_text);
-  vector<int> kmp_matches = kmp_search(s_pattern, s_text);
+  time_algorithms();
+
+  // vector<int> tw_matches = TwoWayMatch(s_pattern, s_text);
+  // vector<int> bm_matches = bm_search(s_pattern, s_text);
+  // vector<int> kmp_matches = kmp_search(s_pattern, s_text);
   // for(int idx : matches)
   // {
   //   cout << idx << ", ";
