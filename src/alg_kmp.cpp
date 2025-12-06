@@ -5,6 +5,7 @@
 /* url:                                                                           */
 /* https://www.geeksforgeeks.org/dsa/kmp-algorithm-for-pattern-searching/         */
 
+#include "alg_kmp.h"
 #include <iostream>
 #include <string>
 #include <vector>

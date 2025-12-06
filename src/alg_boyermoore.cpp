@@ -7,6 +7,7 @@
 
 /* C++ Program for Bad Character Heuristic of Boyer
 Moore String Matching Algorithm */
+#include "alg_boyermoore.h"
 #include <bits/stdc++.h>
 #include <vector>
 using namespace std;
