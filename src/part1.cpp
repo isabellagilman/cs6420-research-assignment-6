@@ -48,25 +48,33 @@ void time_algorithms()
   }
 }
 
-
-int main()
+string parseFile(string filename)
 {
-  char text[] = "the cat is outta the bag";
-  char pattern[] = "cat";
-  string s_pattern = pattern;
-  string s_text = text;
-  int n = s_pattern.length();
+  ifstream infile(filename);
+  string text;
+  getline(infile, text);
+  return text;
+}
 
-  time_algorithms();
 
-  // vector<int> tw_matches = TwoWayMatch(s_pattern, s_text);
-  // vector<int> bm_matches = bm_search(s_pattern, s_text);
-  // vector<int> kmp_matches = kmp_search(s_pattern, s_text);
-  // for(int idx : matches)
-  // {
-  //   cout << idx << ", ";
-  // }
-  // cout << endl;
+int main(int argc, char* argv[])
+{
+  // time_algorithms();
+
+  if(argc != 3)
+  {
+    return -1;
+  }
+  
+  string pattern = argv[1];
+  string text = parseFile(argv[2]);
+
+  vector<int> tw_matches = TwoWayMatch(pattern, text);
+  for(int idx : tw_matches)
+  {
+    cout << idx << " ";
+  }
+  cout << endl;
 
   return 0;
 }
